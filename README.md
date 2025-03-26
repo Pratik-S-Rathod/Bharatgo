@@ -1,8 +1,46 @@
-# React + Vite
+# BharatGo
+## Deploymen link
+https://rainbow-smakager-9c2d79.netlify.app/
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🚨 Deployment Issue
+This project is **not running on deployment** due to Firebase domain access restrictions. I hev done every actions to solve this but it is not solving issue ,However, you can run it locally by following the instructions below.
 
-Currently, two official plugins are available:
+## 🛠️ How to Run Locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### **1. Clone the Repository**
+```sh
+git clone https://github.com/Pratik-S-Rathod/Bharatgo.git
+cd your-repo
+```
+
+### **2. Install Dependencies**
+```sh
+npm install
+```
+
+### **3. Run the Project**
+```sh
+npm start
+```
+
+### **4. Configure Firebase**
+1. Ensure that **Firebase Authentication** and **Firestore** are enabled.
+2. Create a `.env` file in the root directory and add your Firebase credentials:
+   ```sh
+   VITE_FIREBASE_API_KEY=your-api-key
+   VITE_AUTH_DOMAIN=your-auth-domain
+   VITE_PROJECT_ID=your-project-id
+   VITE_STORAGE_BUCKET=your-storage-bucket
+   VITE_MESSAGING_SENDER_ID=your-messaging-sender-id
+   VITE_APP_ID=your-app-id
+   ```
+3. Restart the project using `npm start`.
+
+## 📌 Features
+- Firebase Authentication (Google Login, Email/Password Sign-in)
+- Firestore Database Integration
+- Redux for State Management
+- Tailwind CSS for Styling
+
+## 📜 License
+This project is licensed under the MIT License.
