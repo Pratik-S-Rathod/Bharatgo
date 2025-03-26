@@ -15,7 +15,7 @@ const Nav = () => {
       <nav className="bg-white border-b shadow-sm p-4 md:flex md:items-center md:justify-between">
         {/* Left Section */}
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-800">Vin</h2>
+          <h2 className="text-2xl font-bold text-gray-800">BharatGo</h2>
           <button
             className="text-3xl md:hidden focus:outline-none"
             onClick={() => setMenuOpen(!menuOpen)}

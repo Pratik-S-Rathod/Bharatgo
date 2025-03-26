@@ -1,6 +1,9 @@
 import React, { useRef, useState } from "react";
 import { login } from "./redux/cartSlice";
 import { useDispatch } from "react-redux";
+import { auth, db } from "./firebase"; // Import Firebase Auth & Firestore
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 function Login() {
   const email = useRef(null);
@@ -28,31 +31,27 @@ function Login() {
       return;
     }
 
-    const API_KEY = import.meta.env.VITE_API_KEY;
-    const url = isLogIn
-      ? `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`
-      : `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;
-
     try {
-      const response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify({
+      let userCredential;
+      if (isLogIn) {
+        // Login user
+        userCredential = await signInWithEmailAndPassword(auth, enteredEmail, pas1);
+      } else {
+        // Register user
+        userCredential = await createUserWithEmailAndPassword(auth, enteredEmail, pas1);
+        
+        // Store user data in Firestore (Only for new users)
+        await setDoc(doc(db, "users", userCredential.user.uid), {
           email: enteredEmail,
-          password: pas1,
-          returnSecureToken: true,
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error?.message || "Authentication failed!");
+          createdAt: new Date().toISOString(),
+        });
+        console.log("User data saved to Firestore!");
       }
 
-      const token = data.idToken;
+      const token = await userCredential.user.getIdToken();
       dispatch(login({ token }));
       console.log("Token:", token);
+
     } catch (err) {
       alert("Authentication failed: " + err.message);
     }
